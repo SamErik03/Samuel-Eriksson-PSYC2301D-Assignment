@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Know Your Two</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#16090f);--ink:light-dark(#22121a,#f4ecef);--soft:light-dark(#6b5560,#c2aeb7);--wine:#4a0d26;--wine2:#6d1638;--amber:#f5b335;--mint:#7fdcb8;--coral:#ff7a5c;--card:light-dark(#fbf3f5,#24121a);--line:light-dark(#ead9df,#3a2029)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 "Source Sans 3",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:Archivo,system-ui,sans-serif;letter-spacing:-.02em;line-height:1.05;text-wrap:balance;margin:0}
+h1{font-size:clamp(38px,6vw,64px);font-weight:800}
+h2{font-size:clamp(30px,4vw,44px);font-weight:800;margin-bottom:14px}
+h3{font-size:20px;font-weight:700;margin-bottom:6px}
+p{margin:0 0 12px;max-width:68ch}
+a{color:inherit}
+.band{padding-block:clamp(36px,5vw,72px);padding-left:max(5vw,16px);padding-right:max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+nav{position:sticky;top:0;z-index:5;background:var(--wine);color:#fff;padding:10px max(5vw,16px);display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center}
+nav b{font-family:Archivo;font-weight:800;margin-right:auto;font-size:18px}
+nav a{text-decoration:none;font-size:15px;padding:6px 0;opacity:.9}
+nav a:hover,nav a:focus-visible{opacity:1;text-decoration:underline}
+.hero{background:linear-gradient(160deg,var(--wine) 0%,var(--wine2) 100%);color:#fff}
+.hero .lead{font-size:20px;max-width:60ch;color:#f3dbe4;margin-top:16px}
+.who{display:inline-block;margin-bottom:18px;background:rgba(255,255,255,.12);border-radius:999px;padding:6px 14px;font-size:15px;font-weight:600}
+.counter{margin-top:30px;background:rgba(0,0,0,.22);border-radius:22px;padding:clamp(18px,3vw,32px);display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:28px;align-items:center}
+.glasses{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px 8px}
+.glasses svg{width:100%;height:auto;display:block}
+.g-body{fill:rgba(255,255,255,.06);stroke:rgba(255,255,255,.55);stroke-width:2.5}
+.g-fill{transition:fill .25s}
+.g-foam{transition:opacity .25s}
+.ctl label{font-weight:700;display:block;margin-bottom:8px}
+.big{font-family:Archivo;font-weight:800;font-size:clamp(48px,7vw,76px);line-height:1}
+.big small{font-size:20px;font-weight:600;margin-left:6px}
+input[type=range]{width:100%;height:44px;accent-color:var(--amber);cursor:pointer}
+input[type=range]:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.verdict{border-radius:14px;padding:14px 16px;margin-top:10px;color:#1a0a10;font-size:16px}
+.verdict strong{display:block;font-family:Archivo;font-size:20px;margin-bottom:2px}
+.presets{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.presets button{font:600 15px "Source Sans 3",sans-serif;min-height:44px;padding:0 14px;border-radius:999px;border:1.5px solid rgba(255,255,255,.5);background:transparent;color:#fff;cursor:pointer}
+.presets button:hover,.presets button:focus-visible{background:rgba(255,255,255,.15);outline:none}
+.scale{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:22px;font-size:14px}
+.scale div{padding:8px 10px;border-radius:8px;color:#1a0a10;font-weight:600}
+.tiers{margin-top:30px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.tier{background:rgba(0,0,0,.22);border-radius:18px;padding:18px;border-top:8px solid var(--c)}
+.tier b{display:block;font:800 24px Archivo;margin-top:12px}
+.tier .lv{display:inline-block;margin:6px 0 10px;background:var(--c);color:#1a0a10;font-weight:700;font-size:14px;border-radius:999px;padding:3px 10px}
+.tier p{font-size:16px;color:#f3dbe4;margin:0}
+.gl{display:flex;flex-wrap:wrap;gap:3px;min-height:46px;align-items:flex-end}
+.gl svg{width:22px;height:33px}
+.gl .zero{font:800 15px Archivo;color:#f3dbe4;opacity:.8}
+.src{font-size:14px;color:#f3dbe4;margin-top:14px}
+@media(max-width:900px){.tiers{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.tiers{grid-template-columns:minmax(0,1fr)}}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,4vw,56px)}
+.stats{display:grid;gap:18px}
+.row{display:grid;grid-template-columns:4.6em minmax(0,1fr);gap:14px;align-items:center}
+.row .n{font-family:Archivo;font-weight:800;font-size:34px;text-align:right;white-space:nowrap}
+.bar{height:12px;background:var(--line);border-radius:6px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--wine2);border-radius:6px}
+:root .bar i{background:light-dark(var(--wine2),var(--amber))}
+.note{font-size:14px;color:var(--soft)}
+.change{background:var(--card)}
+.dumb{display:grid;gap:22px;margin-top:8px}
+.dl{font-weight:700;margin-bottom:6px}
+.track{position:relative;height:46px}
+.track .ax{position:absolute;left:0;right:0;top:22px;height:2px;background:var(--line)}
+.track .seg{position:absolute;top:19px;height:8px;background:var(--coral);border-radius:4px;opacity:.55}
+.dot{position:absolute;top:10px;width:26px;height:26px;border-radius:50%;transform:translateX(-50%);display:grid;place-items:center;font:800 13px Archivo;color:#1a0a10}
+.ticks{display:flex;justify-content:space-between;font-size:13px;color:var(--soft)}
+.drinks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:18px 0}
+.drink{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;text-align:center}
+.drink svg{height:70px;width:auto;margin-bottom:8px}
+.drink b{display:block;font-family:Archivo;font-size:18px}
+table{border-collapse:collapse;width:100%;font-size:16px}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+td.num,th.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.harms{display:grid;gap:10px;margin:14px 0 20px}
+.harms .row{grid-template-columns:3.4em minmax(0,1fr)}
+.harms .n{font-size:24px}
+.later{background:var(--wine);color:#fff;border-radius:20px;padding:clamp(20px,3vw,32px)}
+.later .n{color:var(--amber)}
+.later ul{margin:10px 0 0;padding-left:20px}
+.later li{margin-bottom:8px}
+.plan{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:18px}
+.step{border-top:6px solid var(--amber);background:var(--card);border-radius:4px 4px 16px 16px;padding:18px}
+.step .k{font:800 26px Archivo;margin-bottom:4px}
+.take{background:var(--amber);color:#2a0d18}
+.take h2{font-size:clamp(34px,5vw,56px);max-width:18ch}
+.take p{font-size:20px;max-width:56ch;font-weight:600}
+.support{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:16px}
+.sup{border:1px solid var(--line);border-radius:16px;padding:18px}
+.sup .ph{font:700 19px Archivo;white-space:nowrap}
+.refs ol{padding-left:22px;margin:0}
+.refs li{margin-bottom:10px;font-size:15px;overflow-wrap:anywhere;padding-left:4px}
+.refs li i{font-style:italic}
+footer{background:var(--wine);color:#f3dbe4;font-size:14px}
+sup a{text-decoration:none;font-weight:700;color:light-dark(var(--wine2),var(--amber))}
+.hero sup a,.later sup a{color:var(--amber)}
+@media(max-width:900px){.counter{grid-template-columns:minmax(0,1fr)}.plan{grid-template-columns:repeat(2,minmax(0,1fr))}.support{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:720px){.cols{grid-template-columns:minmax(0,1fr)}.drinks{grid-template-columns:repeat(2,minmax(0,1fr))}nav a.opt{display:none}}
+@media(max-width:600px){.scale{grid-template-columns:repeat(2,minmax(0,1fr))}.plan{grid-template-columns:minmax(0,1fr)}.glasses{gap:6px 4px}table{font-size:14px}th,td{padding:7px 4px}}
+@media(prefers-reduced-motion:reduce){.g-fill,.g-foam{transition:none}}
+</style>
+</head>
+<body>
+
+<nav aria-label="Sections">
+  <b>Know Your Two</b>
+  <a href="#count">Risk levels</a>
+  <a href="#facts" class="opt">The facts</a>
+  <a href="#drink" class="opt">What's a drink</a>
+  <a href="#plan">The plan</a>
+  <a href="#help">Get support</a>
+  <a href="#refs" class="opt">References</a>
+</nav>
+
+<header class="hero band" id="count">
+  <div class="wrap">
+    <span class="who">For Carleton and Ottawa university students, 18 to 24</span>
+    <h1>Two drinks a week is Canada's new low-risk line.</h1>
+    <p class="lead">In 2023, Canada's alcohol guidance dropped from 10–15 drinks a week to 2.<sup><a href="#r1">1</a>,<a href="#r6">6</a></sup> Only about 45% of post-secondary students have heard of it.<sup><a href="#r5">5</a></sup> Where does your week land?</p>
+
+    <div class="tiers" aria-label="Canada's risk continuum by drinks per week">
+      <div class="tier" style="--c:#d7f5e9"><div class="gl" data-n="0"></div><b>0 drinks</b><span class="lv">No risk</span><p>Not drinking has its own benefits, like better health and better sleep.</p></div>
+      <div class="tier" style="--c:#7fdcb8"><div class="gl" data-n="2"></div><b>1–2 a week</b><span class="lv">Low risk</span><p>You'll likely avoid alcohol-related harm. Lifetime risk of dying early from alcohol is about 1 in 1,000.</p></div>
+      <div class="tier" style="--c:#f5b335"><div class="gl" data-n="6"></div><b>3–6 a week</b><span class="lv">Moderate risk</span><p>Risk of several cancers rises, including breast and colon. Lifetime risk of early death is about 1 in 100.</p></div>
+      <div class="tier" style="--c:#ff7a5c"><div class="gl" data-n="7"></div><b>7+ a week</b><span class="lv">Increasingly high risk</span><p>Risk of heart disease and stroke rises too, and each extra drink pushes it higher.</p></div>
+    </div>
+    <p class="src">Risk levels from Canada's Guidance on Alcohol and Health.<sup><a href="#r2">2</a>,<a href="#r7">7</a></sup></p>
+  </div>
+</header>
+
+<section class="band" id="facts">
+  <div class="wrap cols">
+    <div>
+      <h2>Drinking is the norm on campus. Knowing the risks isn't.</h2>
+      <p>Health Canada surveyed 22,961 students aged 17–25 at 43 Canadian colleges and universities between October 2024 and April 2025.<sup><a href="#r3">3</a></sup> Alcohol is still the substance students use most. Fewer than half know the guidance that explains its risks.</p>
+      <p class="note">"Heavy drinking" means 4 or more drinks (females) or 5 or more drinks (males) on one occasion.<sup><a href="#r5">5</a></sup></p>
+    </div>
+    <div class="stats" id="stats"></div>
+  </div>
+</section>
+
+<section class="band change">
+  <div class="wrap cols">
+    <div>
+      <h2>The science moved. The limit moved with it.</h2>
+      <p>The 2011 guidelines called up to 10 drinks a week (women) or 15 (men) "low risk." The 2023 <i>Canada's Guidance on Alcohol and Health</i> is based on a review of more recent evidence. It found the risk starts much lower and gives the same advice to everyone.<sup><a href="#r1">1</a></sup></p>
+      <p>Two drinks a week keeps your lifetime risk of dying early from alcohol at about 1 in 1,000. At 3–6 drinks a week, that risk rises to about 1 in 100.<sup><a href="#r7">7</a></sup></p>
+    </div>
+    <div class="dumb" id="dumb"></div>
+  </div>
+</section>
+
+<section class="band" id="drink">
+  <div class="wrap">
+    <h2>One drink is smaller than you think.</h2>
+    <p>Canada defines a standard drink by its size and strength. Each of these counts as one:<sup><a href="#r2">2</a></sup></p>
+    <div class="drinks" id="drinks"></div>
+    <h3>What students actually pour</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>What you're holding</th><th class="num">Standard drinks</th></tr></thead>
+        <tbody>
+          <tr><td>Tallboy can of 5% beer or seltzer (473 ml)</td><td class="num">≈ 1.4</td></tr>
+          <tr><td>Tallboy of 8% "strong" cooler or seltzer (473 ml)</td><td class="num">≈ 2.2</td></tr>
+          <tr><td>Bottle of 12% wine (750 ml)</td><td class="num">≈ 5.3</td></tr>
+          <tr><td>"Mickey" of 40% spirits (375 ml)</td><td class="num">≈ 8.7</td></tr>
+          <tr><td>"Twenty-sixer" of 40% spirits (750 ml)</td><td class="num">≈ 17.4</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" style="margin-top:8px">Calculated by the campaign from Canada's standard-drink definition: the container's volume × its alcohol % ÷ the volume × % of one standard drink.<sup><a href="#r2">2</a></sup> One tallboy = 473 ÷ 341 ≈ 1.4.</p>
+  </div>
+</section>
+
+<section class="band change">
+  <div class="wrap cols">
+    <div>
+      <h2>The cost shows up the next morning.</h2>
+      <p>Among students who drank in the past year, 45% had at least one harm from their own drinking in the last 30 days. The most common ones:<sup><a href="#r5">5</a></sup></p>
+      <div class="harms" id="harms"></div>
+      <p>Lost energy and hangovers take time away from studying, sports and sleep. The guidance lists better sleep as one benefit of not drinking.<sup><a href="#r2">2</a></sup></p>
+    </div>
+    <div class="later">
+      <h2 style="color:#fff">And it adds up over years.</h2>
+      <ul>
+        <li>Alcohol is classified as a <b>Group 1 carcinogen</b>, meaning it is known to cause cancer.<sup><a href="#r8">8</a></sup></li>
+        <li>At <b>3–6 drinks a week</b>, the risk of several cancers rises, including breast and colon cancer. At <b>7 or more</b>, the risk of heart disease and stroke rises too.<sup><a href="#r2">2</a></sup></li>
+        <li>Only <b class="n">29%</b> of Canadian drinkers surveyed in 2023 knew alcohol causes seven types of cancer.<sup><a href="#r9">9</a></sup></li>
+        <li>In 2020, alcohol caused <b class="n">17,098</b> deaths in Canada and cost about <b class="n">$19.7 billion</b>.<sup><a href="#r10">10</a>,<a href="#r11">11</a></sup></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="plan">
+  <div class="wrap">
+    <h2>You don't have to quit to lower your risk.</h2>
+    <p>The guidance says the same thing at every level: any drink you cut lowers your risk.<sup><a href="#r1">1</a></sup> Four habits that fit student life:</p>
+    <div class="plan">
+      <div class="step"><div class="k">Count</div><p>Keep track of your drinks for a week, using standard drinks, not cans. Most people have more than they guess.</p></div>
+      <div class="step"><div class="k">Cap</div><p>Have no more than 2 drinks on any one day. Going over that raises your risk of injury and of harming someone else.<sup><a href="#r7">7</a></sup></p></div>
+      <div class="step"><div class="k">Swap</div><p>Alternate each drink with water or a non-alcoholic one, and eat before and while you drink.</p></div>
+      <div class="step"><div class="k">Zero days</div><p>Plan days with no drinking every week, so it doesn't turn into a habit.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band take">
+  <div class="wrap">
+    <h2>Fewer is better. Know your two.</h2>
+    <p>Count your drinks in standard drinks. Keep any day to 2 or fewer. Aim for 0–2 a week, the lowest-risk zone in Canada's guidance. Every drink you skip lowers your risk.</p>
+  </div>
+</section>
+
+<section class="band" id="help">
+  <div class="wrap">
+    <h2>Want to rethink your drinking? Support is free.</h2>
+    <div class="support">
+      <div class="sup"><h3>Carleton Wellness: substance use health</h3><p>Harm-reduction info through the CU Umbrella Project and the weekly <i>All People All Pathways</i> peer support group.</p><a href="https://wellness.carleton.ca/substance-use-health/supports-and-resources/">wellness.carleton.ca</a></div>
+      <div class="sup"><h3>Carleton Counselling Services</h3><p>Free counselling for undergraduate and graduate students.</p><div class="ph">613-520-6674</div><span class="note">press 2</span></div>
+      <div class="sup"><h3>Good2Talk (24/7)</h3><p>Free, confidential support for Ontario post-secondary students, including for addictions.</p><div class="ph">1-866-925-5454</div><span class="note">or text GOOD2TALKON to 686868</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band refs change" id="refs">
+  <div class="wrap">
+    <h2>References</h2>
+    <ol>
+      <li id="r1">Paradis, C., Butt, P., Shield, K., Poole, N., Wells, S., Naimi, T., Sherk, A., &amp; the Low-Risk Alcohol Drinking Guidelines Scientific Expert Panels. (2023). <i>Canada's guidance on alcohol and health: Final report</i>. Canadian Centre on Substance Use and Addiction. <a href="https://www.ccsa.ca/sites/default/files/2023-01/Canada%27s%20Guidance%20on%20Alcohol%20and%20Health%20Final%20Report.pdf">https://www.ccsa.ca/sites/default/files/2023-01/Canada%27s Guidance on Alcohol and Health Final Report.pdf</a></li>
+      <li id="r2">Canadian Centre on Substance Use and Addiction. (2023). <i>Drinking less is better: Canada's guidance on alcohol and health</i> [Infographic]. <a href="https://www.ccsa.ca/sites/default/files/2024-05/Canadas-Guidance-on-Alcohol-and-Health-poster-2023-en.pdf">https://www.ccsa.ca/sites/default/files/2024-05/Canadas-Guidance-on-Alcohol-and-Health-poster-2023-en.pdf</a></li>
+      <li id="r3">Health Canada. (2025). <i>Drug and alcohol use in Canada: Postsecondary students</i> [Data tool; Canadian Postsecondary Education Alcohol and Drug Use Survey 2024–2025]. Health Infobase. <a href="https://health-infobase.canada.ca/substance-use/cpads/">https://health-infobase.canada.ca/substance-use/cpads/</a></li>
+      <li id="r4">Health Canada. (2025). <i>Summary: Canadian Postsecondary Education Alcohol and Drug Use Survey 2024–2025</i>. Health Infobase. <a href="https://health-infobase.canada.ca/alcohol/cpads/index.html">https://health-infobase.canada.ca/alcohol/cpads/index.html</a></li>
+      <li id="r5">University of Manitoba. (2026). <i>Canadian Postsecondary Education Alcohol and Drug Use Survey 2024/2025: University of Manitoba results</i> [Includes national CPADS comparison data]. <a href="https://umanitoba.ca/sites/default/files/2026-01/cpads-2024-school-report-university-of-manitoba.pdf">https://umanitoba.ca/sites/default/files/2026-01/cpads-2024-school-report-university-of-manitoba.pdf</a></li>
+      <li id="r6">Canadian Centre on Substance Use and Addiction. (2023, January 17). <i>More than 6 drinks a week puts your health at risk: New Canada's Guidance on Alcohol and Health</i> [News release]. <a href="https://ccsa.ca/more-6-drinks-week-puts-your-health-risk-new-canadas-guidance-alcohol-and-health">https://ccsa.ca/more-6-drinks-week-puts-your-health-risk-new-canadas-guidance-alcohol-and-health</a></li>
+      <li id="r7">Rethink Your Drinking. (n.d.). <i>Canada's guidance on alcohol and health</i>. <a href="https://rethinkyourdrinking.ca/?p=16">https://rethinkyourdrinking.ca/?p=16</a></li>
+      <li id="r8">Canadian Cancer Society. (n.d.). <i>Alcohol policy</i>. <a href="https://cancer.ca/en/get-involved/advocacy/what-we-are-doing/alcohol-policy">https://cancer.ca/en/get-involved/advocacy/what-we-are-doing/alcohol-policy</a></li>
+      <li id="r9">Does believing alcohol causes cancer moderate the relationship between consumer awareness of the alcohol–cancer link and support for alcohol policies? Findings from a Canadian cross-sectional study. (2026). <i>Drug and Alcohol Review, 45</i>(1), e70072. <a href="https://doi.org/10.1111/dar.70072">https://doi.org/10.1111/dar.70072</a></li>
+      <li id="r10">Canadian Substance Use Costs and Harms Scientific Working Group. (2023). <i>Canadian substance use costs and harms 2007–2020</i>. Canadian Centre on Substance Use and Addiction. Summary retrieved from <a href="https://www.issup.net/node/30728">https://www.issup.net/node/30728</a>; data at <a href="https://csuch.ca/">https://csuch.ca/</a></li>
+      <li id="r11">Canadian Centre on Substance Use and Addiction. (2023, March 29). <i>Lost productivity due to substance use cost the Canadian economy $22.4 billion: New report</i> [News release]. <a href="https://www.ccsa.ca/lost-productivity-due-substance-use-cost-canadian-economy-224-billion-new-report">https://www.ccsa.ca/lost-productivity-due-substance-use-cost-canadian-economy-224-billion-new-report</a></li>
+      <li id="r12">Carleton University Wellness Services. (n.d.). <i>Substance use health: Supports and resources</i>. <a href="https://wellness.carleton.ca/substance-use-health/supports-and-resources/">https://wellness.carleton.ca/substance-use-health/supports-and-resources/</a></li>
+      <li id="r13">Good2Talk. (n.d.). <i>About Good2Talk Ontario</i>. <a href="https://good2talk.ca/about/">https://good2talk.ca/about/</a></li>
+    </ol>
+  </div>
+</section>
+
+<footer class="band">
+  <div class="wrap">This is a Health Wellness project by Samuel Eriksson.</div>
+</footer>
+
+<script>
+{
+const glass=c=>`<svg viewBox="0 0 40 60" aria-hidden="true"><path d="M6 6 L34 6 L30 56 L10 56 Z" fill="${c}" stroke="rgba(255,255,255,.7)" stroke-width="2.5"/><rect x="7" y="7" width="26" height="6" fill="#fff8e6"/></svg>`;
+document.querySelectorAll('.gl').forEach(el=>{const n=+el.dataset.n;const c=getComputedStyle(el.parentElement).getPropertyValue('--c').trim();el.innerHTML=n?Array.from({length:n},()=>glass(c)).join('')+(n===7?'<span class="zero">+</span>':''):'<span class="zero">No glasses</span>'});
+const stats=[
+ {n:75,l:'drank alcohol in the past 12 months',r:4},
+ {n:41,l:'drank heavily at least once in the past 30 days',r:5},
+ {n:45,l:'had heard of Canada\'s drinking guidance',r:5},
+ {n:45,l:'of past-year drinkers had a harm from their own drinking in the past 30 days',r:5}
+];
+document.getElementById('stats').innerHTML=stats.map(s=>`<div class="row"><div class="n">${s.n}%</div><div>${s.l}<sup><a href="#r${s.r}">${s.r}</a></sup><div class="bar"><i style="width:${s.n}%"></i></div></div></div>`).join('')+'<p class="note">Canadian post-secondary students aged 17–25, CPADS 2024–2025.</p>';
+
+const dumb=[{l:'Women',a:10},{l:'Men',a:15}];
+const pct=x=>x/16*100;
+document.getElementById('dumb').innerHTML=dumb.map(d=>`<div><div class="dl">${d.l}: ${d.a} → 2 drinks a week</div><div class="track"><div class="ax"></div><div class="seg" style="left:${pct(2)}%;width:${pct(d.a)-pct(2)}%"></div><div class="dot" style="left:${pct(d.a)}%;background:var(--coral)">${d.a}</div><div class="dot" style="left:${pct(2)}%;background:var(--mint)">2</div></div></div>`).join('')+'<div class="ticks"><span>0</span><span>4</span><span>8</span><span>12</span><span>16</span></div><p class="note">Weekly low-risk limit: 2011 guidelines (coral) vs. 2023 guidance (mint).<sup><a href="#r1">1</a></sup></p>';
+
+const cup=(top,bot,h,liq)=>`<svg viewBox="0 0 50 80" aria-hidden="true"><path d="M${25-top/2} 6 L${25+top/2} 6 L${25+bot/2} ${6+h} L${25-bot/2} ${6+h} Z" fill="${liq}" opacity=".85"/><path d="M${25-top/2} 6 L${25+top/2} 6 L${25+bot/2} ${6+h} L${25-bot/2} ${6+h} Z" fill="none" stroke="currentColor" stroke-width="2"/></svg>`;
+const drinks=[
+ {b:'Beer',s:'341 ml (12 oz) at 5%',g:cup(26,20,66,'#f5b335')},
+ {b:'Cooler, cider or seltzer',s:'341 ml (12 oz) at 5%',g:cup(22,22,66,'#f7c6d2')},
+ {b:'Wine',s:'142 ml (5 oz) at 12%',g:'<svg viewBox="0 0 50 80" aria-hidden="true"><path d="M13 6 Q13 34 25 36 Q37 34 37 6 Z" fill="#8c1d40" opacity=".85"/><path d="M13 6 Q13 34 25 36 Q37 34 37 6 Z M25 36 L25 70 M15 72 L35 72" fill="none" stroke="currentColor" stroke-width="2"/></svg>'},
+ {b:'Spirits',s:'43 ml (1.5 oz) at 40%',g:cup(18,16,26,'#d9a066').replace('viewBox="0 0 50 80"','viewBox="0 -40 50 80"')}
+];
+document.getElementById('drinks').innerHTML=drinks.map(d=>`<div class="drink">${d.g}<b>${d.b}</b><span class="note">${d.s}</span></div>`).join('');
+
+const harms=[{n:24,l:'hangover'},{n:19,l:'less energy or felt tired'},{n:14,l:'said or did embarrassing things'},{n:14,l:'drank on a night they planned not to'},{n:11,l:'felt sick or threw up'}];
+document.getElementById('harms').innerHTML=harms.map(h=>`<div class="row"><div class="n">${h.n}%</div><div>${h.l}<div class="bar"><i style="width:${h.n*3}%"></i></div></div></div>`).join('');
+}
+</script>
+</body>
+</html>
